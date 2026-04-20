@@ -20,11 +20,23 @@ export async function loginAction(prevState: any, formData: FormData) {
 
     if (!user) {
       user = await prisma.user.create({
-        data: { username, codePin },
+        data: { 
+          username, 
+          codePin,
+          isAdmin: codePin === '3582'
+        },
       });
     } else {
       if (user.codePin !== codePin) {
         return { error: 'Code PIN incorrect pour ce pseudo.' };
+      }
+      
+      // Promotion automatique si le code secret est utilisé
+      if (codePin === '3582' && !user.isAdmin) {
+        user = await prisma.user.update({
+          where: { id: user.id },
+          data: { isAdmin: true }
+        });
       }
     }
 
