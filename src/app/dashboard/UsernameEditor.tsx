@@ -59,6 +59,10 @@ export default function UsernameEditor({
           defaultValue={currentUsername} 
           className="input-field py-1 px-2" 
           style={{ width: '150px', fontSize: isLarge ? '1.5rem' : 'inherit' }}
+          minLength={3}
+          maxLength={7}
+          pattern="^[a-zA-Z0-9_-]+$"
+          title="Le pseudo doit faire entre 3 et 7 caractères et ne contenir que des lettres, chiffres, tirets ou underscores."
         />
         <button type="submit" className="text-success hover:scale-110 transition-transform">
           <Check size={20} />

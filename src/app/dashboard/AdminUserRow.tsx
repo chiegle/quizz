@@ -37,6 +37,10 @@ export default function AdminUserRow({ user }: { user: UserData }) {
               name="username" 
               defaultValue={user.username} 
               className="input-field py-1 px-2 text-sm" 
+              minLength={3}
+              maxLength={7}
+              pattern="^[a-zA-Z0-9_-]+$"
+              title="Le pseudo doit faire entre 3 et 7 caractères et ne contenir que des lettres, chiffres, tirets ou underscores."
             />
             <button type="submit" className="text-success hover:scale-110"><Check size={16} /></button>
             <button type="button" onClick={() => setIsEditing(false)} className="text-error hover:scale-110"><X size={16} /></button>

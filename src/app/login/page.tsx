@@ -3,6 +3,8 @@ import LoginForm from './LoginForm';
 import { Trophy } from 'lucide-react';
 import { getContrastColor, getTodayString } from '@/lib/utils';
 
+export const dynamic = 'force-dynamic';
+
 export default async function LoginPage() {
   const todayStr = getTodayString();
 

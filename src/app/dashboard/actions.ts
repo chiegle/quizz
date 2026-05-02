@@ -140,8 +140,12 @@ export async function updateUsernameAction(prevState: any, formData: FormData) {
   if (!sessionUserId) return { error: 'Non authentifié.' };
 
   const newUsername = (formData.get('username') as string)?.trimEnd();
-  if (!newUsername || newUsername.length < 2) {
-    return { error: 'Le pseudo est trop court.' };
+  const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+  if (!newUsername || newUsername.length < 3 || newUsername.length > 7) {
+    return { error: 'Le pseudo doit faire entre 3 et 7 caractères.' };
+  }
+  if (!usernameRegex.test(newUsername)) {
+    return { error: 'Le pseudo ne peut contenir que des lettres, chiffres, tirets et underscores.' };
   }
 
   try {
@@ -171,8 +175,14 @@ export async function adminUpdateUserAction(prevState: any, formData: FormData) 
 
   const targetUserId = formData.get('targetUserId') as string;
   const newUsername = (formData.get('username') as string)?.trimEnd();
+  const usernameRegex = /^[a-zA-Z0-9_-]+$/;
   
-  if (!newUsername || newUsername.length < 2) return { error: 'Pseudo trop court.' };
+  if (!newUsername || newUsername.length < 3 || newUsername.length > 7) {
+    return { error: 'Le pseudo doit faire entre 3 et 7 caractères.' };
+  }
+  if (!usernameRegex.test(newUsername)) {
+    return { error: 'Le pseudo ne peut contenir que des lettres, chiffres, tirets et underscores.' };
+  }
 
   try {
     const admin = await prisma.user.findUnique({ where: { id: sessionUserId } });

@@ -13,6 +13,15 @@ export async function loginAction(prevState: any, formData: FormData) {
     return { error: 'Veuillez fournir un pseudo et un code exact à 4 chiffres.' };
   }
 
+  // Classic controls on username
+  const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+  if (username.length < 3 || username.length > 7) {
+    return { error: 'Le pseudo doit faire entre 3 et 7 caractères.' };
+  }
+  if (!usernameRegex.test(username)) {
+    return { error: 'Le pseudo ne peut contenir que des lettres, chiffres, tirets et underscores.' };
+  }
+
   try {
     let user = await prisma.user.findUnique({
       where: { username },

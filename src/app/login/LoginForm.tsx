@@ -43,6 +43,10 @@ export default function LoginForm({ usernames = [] }: { usernames?: string[] }) 
                 placeholder="Votre Pseudo" 
                 className="input-field" 
                 required 
+                minLength={3}
+                maxLength={7}
+                pattern="^[a-zA-Z0-9_-]+$"
+                title="Le pseudo doit faire entre 3 et 7 caractères et ne contenir que des lettres, chiffres, tirets ou underscores."
               />
             </>
           ) : (
